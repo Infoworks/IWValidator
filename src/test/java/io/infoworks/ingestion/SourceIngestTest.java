@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import io.infoworks.ingestion.metadata.MetadataInfo;
 import io.infoworks.ingestion.source.SourceInfo;
-import io.infoworks.ingestion.target.TargetInfo;
+import io.infoworks.ingestion.tgt.TargetInfo;
 
 public class SourceIngestTest {
 

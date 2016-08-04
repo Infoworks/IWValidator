@@ -15,7 +15,7 @@ import io.infoworks.ingestion.source.RDBMSSouceInfo;
 import io.infoworks.ingestion.source.SourceDriverName;
 import io.infoworks.ingestion.source.SourceInfo;
 import io.infoworks.ingestion.source.SourceType;
-import io.infoworks.ingestion.target.TargetInfo;
+import io.infoworks.ingestion.tgt.TargetInfo;
 import io.infoworks.util.Util;
 
 import static com.google.common.base.Preconditions.*;
