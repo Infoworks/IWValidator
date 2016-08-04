@@ -57,4 +57,10 @@ public class MetadataInfo {
 	public void setDbName(String dbName) {
 		this.dbName = dbName;
 	}
+
+	@Override
+	public String toString() {
+		return "MetadataInfo [hostName=" + hostName + ", userId=" + userId + ", port=" + port + ", dbName=" + dbName
+				+ ", collectionName=" + collectionName + "]";
+	}
 }
