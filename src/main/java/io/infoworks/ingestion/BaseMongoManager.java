@@ -99,7 +99,7 @@ public class BaseMongoManager {
 		return dbObj ;
 	}
 	
-	protected void deleteSource(DBObject id) {
+	public void deleteSource(DBObject id) {
 		
 		logger.info("object deleted:" + getCollection("sources").remove(id) .getN());
 		//TODO - DELETE HDFS
