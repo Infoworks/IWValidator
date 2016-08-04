@@ -58,7 +58,8 @@ public class SourceIngestTest {
 			si.setName(srcname);
 			RDBMSSouceInfo sinfo = new RDBMSSouceInfo(
 					System.getProperty("src_hostname"), 
-					Integer.getInteger(System.getProperty("src_port")), 
+					//Integer.getInteger(System.getProperty("src_port")), 
+					1521, //TODO - Change
 					System.getProperty("src_schema"), 
 					System.getProperty("src_userName"), 
 					System.getProperty("src_password"), 
