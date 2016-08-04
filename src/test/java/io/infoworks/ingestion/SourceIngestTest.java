@@ -69,7 +69,7 @@ public class SourceIngestTest {
 			logger.info("got source info:" + si);
 		}
 		if(ti == null) { 
-			TargetInfo ti = new TargetInfo() ;
+			ti = new TargetInfo() ;
 			ti.setHdfsPath(System.getProperty("tgt_hdfsPath"));
 			ti.setHiveSchema(System.getProperty("tgt_hiveSchema"));
 			logger.info("got target info: " + ti) ;
