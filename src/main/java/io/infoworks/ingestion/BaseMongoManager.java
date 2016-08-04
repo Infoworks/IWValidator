@@ -61,9 +61,10 @@ public class BaseMongoManager {
 	
 	public void insert(SourceInfo sInfo, TargetInfo tInfo, String suff) {
 		if(sInfo instanceof RDBMSSouceInfo) { 
-			
+			logger.info("rdbms source found");
 			RDBMSSouceInfo rsInfo = (RDBMSSouceInfo) sInfo ;
-			if(rsInfo.getStype() == SourceType.ORACLE) { 
+			if(rsInfo.getStype() == SourceType.ORACLE) {
+				logger.info("oracle src found");
 				String jdbcUrl = createOracleJdbcUrl(rsInfo.getHostname(), rsInfo.getPort(), rsInfo.getSchema()) ;
 				rsInfo.setJdbcUrl(jdbcUrl);
 				BasicDBObject src = constructMongoObj(rsInfo, tInfo, suff) ;
@@ -71,6 +72,9 @@ public class BaseMongoManager {
 				WriteResult result = collection.save(src) ;
 				logger.info("upserted id is "+ result.getUpsertedId() + "," + result);
 			}
+		}
+		else {
+			logger.info("non rdbms source found");
 		}
 		
 	}
