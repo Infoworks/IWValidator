@@ -55,7 +55,7 @@ public class SourceIngestTest {
 		if(si == null) { 
 			suff = new Date().toString().replaceAll(":","_").replaceAll(" ", "_") ;
 			String srcname = "automatedtest_" + suff ;
-			si.setName(srcname);
+			
 			si = new RDBMSSouceInfo(
 					System.getProperty("src_hostname"), 
 					//Integer.getInteger(System.getProperty("src_port")), 
@@ -65,6 +65,7 @@ public class SourceIngestTest {
 					System.getProperty("src_password"), 
 					SourceDriverName.ORACLE_DRIVER_NAME) ; //TODO - Refactor for other Dbs
 			si.setStype(SourceType.ORACLE); //TODO - Changes
+			si.setName(srcname);
 			logger.info("got source info:" + si);
 		}
 		if(ti == null) { 
