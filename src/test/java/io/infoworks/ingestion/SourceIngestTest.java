@@ -12,6 +12,7 @@ import io.infoworks.ingestion.metadata.MetadataInfo;
 import io.infoworks.ingestion.source.RDBMSSouceInfo;
 import io.infoworks.ingestion.source.SourceDriverName;
 import io.infoworks.ingestion.source.SourceInfo;
+import io.infoworks.ingestion.source.SourceType;
 import io.infoworks.ingestion.tgt.TargetInfo;
 
 public class SourceIngestTest {
@@ -52,11 +53,10 @@ public class SourceIngestTest {
 			
 		}
 		if(si == null) { 
-			si = new SourceInfo() ;
 			suff = new Date().toString().replaceAll(":","_").replaceAll(" ", "_") ;
 			String srcname = "automatedtest_" + suff ;
 			si.setName(srcname);
-			RDBMSSouceInfo sinfo = new RDBMSSouceInfo(
+			si = new RDBMSSouceInfo(
 					System.getProperty("src_hostname"), 
 					//Integer.getInteger(System.getProperty("src_port")), 
 					1521, //TODO - Change
@@ -64,7 +64,8 @@ public class SourceIngestTest {
 					System.getProperty("src_userName"), 
 					System.getProperty("src_password"), 
 					SourceDriverName.ORACLE_DRIVER_NAME) ; //TODO - Refactor for other Dbs
-			logger.info("got source info:" + sinfo);
+			si.setStype(SourceType.ORACLE); //TODO - Changes
+			logger.info("got source info:" + si);
 		}
 		if(ti == null) { 
 			TargetInfo ti = new TargetInfo() ;
