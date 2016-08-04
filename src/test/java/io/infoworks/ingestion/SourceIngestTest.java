@@ -32,7 +32,7 @@ public class SourceIngestTest {
 	private void getMetaInfo() {
 		if(mi == null) { 
 			mi = new MetadataInfo() ;
-			mi.setCollectionName(System.getProperty("meta_collectionName"));
+			mi.setCollectionName(System.getProperty("meta_src_collectionName"));
 			mi.setDbName(System.getProperty("meta_dbName"));
 			mi.setHostName(System.getProperty("meta_hostName"));
 			mi.setPassword(System.getProperty("meta_password"));
