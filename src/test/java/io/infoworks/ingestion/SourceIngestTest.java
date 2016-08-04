@@ -2,12 +2,15 @@ package io.infoworks.ingestion;
 
 import static org.junit.Assert.*;
 
+import java.util.Date;
 import java.util.logging.Logger;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import io.infoworks.ingestion.metadata.MetadataInfo;
+import io.infoworks.ingestion.source.RDBMSSouceInfo;
+import io.infoworks.ingestion.source.SourceDriverName;
 import io.infoworks.ingestion.source.SourceInfo;
 import io.infoworks.ingestion.tgt.TargetInfo;
 
@@ -16,20 +19,21 @@ public class SourceIngestTest {
 	private static MetadataInfo mi ; 
 	private static SourceInfo si ;
 	private static TargetInfo ti ;
+	private static String suff ;
 	private Logger logger = Logger.getLogger("SourceIngestTest") ;
 	
 	@Before
 	public void setup() { 
-		getMetaInfo();
+		init();
 	}
 	
 	@Test
 	public void testSrc() {
 		BaseMongoManager msetup = new BaseMongoManager(mi);
-		
+		msetup.insert(si, ti, suff);
 	}
 
-	private void getMetaInfo() {
+	private void init() {
 		if(mi == null) { 
 			mi = new MetadataInfo() ;
 			mi.setCollectionName(System.getProperty("meta_src_collectionName"));
@@ -48,10 +52,24 @@ public class SourceIngestTest {
 			
 		}
 		if(si == null) { 
-					
+			si = new SourceInfo() ;
+			suff = new Date().toString().replaceAll(":","_").replaceAll(" ", "_") ;
+			String srcname = "automatedtest_" + suff ;
+			si.setName(srcname);
+			RDBMSSouceInfo sinfo = new RDBMSSouceInfo(
+					System.getProperty("src_hostname"), 
+					Integer.getInteger(System.getProperty("src_port")), 
+					System.getProperty("src_schema"), 
+					System.getProperty("src_userName"), 
+					System.getProperty("src_password"), 
+					SourceDriverName.ORACLE_DRIVER_NAME) ; //TODO - Refactor for other Dbs
+			logger.info("got source info:" + sinfo);
 		}
 		if(ti == null) { 
-	
+			TargetInfo ti = new TargetInfo() ;
+			ti.setHdfsPath(System.getProperty("tgt_hdfsPath"));
+			ti.setHiveSchema(System.getProperty("tgt_hiveSchema"));
+			logger.info("got target info: " + ti) ;
 		}
 	}
 }

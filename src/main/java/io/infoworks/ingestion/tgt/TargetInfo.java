@@ -17,5 +17,9 @@ public class TargetInfo {
 	public void setHiveSchema(String hiveSchema) {
 		this.hiveSchema = hiveSchema; 
 	}
+	@Override
+	public String toString() {
+		return "TargetInfo [hdfsPath=" + hdfsPath + ", hiveSchema=" + hiveSchema + "]";
+	}
 	
 }

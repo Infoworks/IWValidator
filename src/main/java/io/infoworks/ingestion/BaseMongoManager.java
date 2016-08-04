@@ -59,7 +59,7 @@ public class BaseMongoManager {
 	
 
 	
-	protected void insert(SourceInfo sInfo, TargetInfo tInfo, String suff) {
+	public void insert(SourceInfo sInfo, TargetInfo tInfo, String suff) {
 		if(sInfo instanceof RDBMSSouceInfo) { 
 			
 			RDBMSSouceInfo rsInfo = (RDBMSSouceInfo) sInfo ;
@@ -102,6 +102,8 @@ public class BaseMongoManager {
 	protected void deleteSource(DBObject id) {
 		
 		logger.info("object deleted:" + getCollection("sources").remove(id) .getN());
+		//TODO - DELETE HDFS
+		//TODO - Drop Hive schema
 	}
 
 	protected DBObject findSource(String name) {

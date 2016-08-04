@@ -67,5 +67,11 @@ public class RDBMSSouceInfo extends SourceInfo {
 	public void setSourceDriverName(SourceDriverName sourceDriverName) {
 		this.sourceDriverName = sourceDriverName;
 	}
+
+	@Override
+	public String toString() {
+		return "RDBMSSouceInfo [hostname=" + hostname + ", port=" + port + ", schema=" + schema + ", userName="
+				+ userName + ", sourceDriverName=" + sourceDriverName + "]";
+	}
 	
 }
