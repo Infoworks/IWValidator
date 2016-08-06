@@ -27,7 +27,7 @@ public class QueryExecutor {
   private static String kylinPassword;
   private static String kylinProjectName;
 
-  private final String kylingJDBCDriver = "org.apache.kylin.jdbc.Driver";
+  private static final String kylingJDBCDriver = "org.apache.kylin.jdbc.Driver";
 
   public QueryExecutor(String kylinHost, String kylinPort, String kylinUsername, String kylinPassword, String kylinProjectName) {
     this.kylinHost = kylinHost;
@@ -42,7 +42,7 @@ public class QueryExecutor {
   }
 
   private static Connection getConnection() throws Exception {
-    Driver driver = (Driver) Class.forName("org.apache.kylin.jdbc.Driver").newInstance();
+    Driver driver = (Driver) Class.forName(kylingJDBCDriver).newInstance();
     Properties info = new Properties();
     info.put("user", kylinUsername);
     info.put("password", kylinPassword);
