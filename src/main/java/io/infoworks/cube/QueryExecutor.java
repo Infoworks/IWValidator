@@ -60,6 +60,7 @@ public class QueryExecutor {
 
   private static File[] getFileList() {
     File folder = new File(System.getProperty("user.dir") + "/src/resources");
+    logger.info("Looking for all files under: " + folder.getAbsolutePath());
     File[] fileList = folder.listFiles();
     return fileList;
   }
@@ -94,8 +95,11 @@ public class QueryExecutor {
     List<String> queryList = getQueryList();
     for (String query : queryList) {
       try {
+        logger.info("---------------------------------------------------------------");
+        logger.info("Executing query: " + query);
+        logger.info("---------------------------------------------------------------");
         resultSet = executeQuery(query);
-        // Print result set here
+        // TODO: Print result set here
       }
       finally {
         if (resultSet != null) {
