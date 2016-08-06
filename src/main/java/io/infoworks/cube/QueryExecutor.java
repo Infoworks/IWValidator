@@ -38,7 +38,7 @@ public class QueryExecutor {
   }
 
   private static String getConnectionString() {
-    return "jdbc:kylin://" + kylinHost + ":" + kylinPort + "/" + kylinProjectName;
+    return new StringBuilder().append("jdbc:kylin://").append(kylinHost).append(":").append(kylinPort).append("/").append(kylinProjectName).toString();
   }
 
   private static Connection getConnection() throws Exception {
@@ -59,7 +59,7 @@ public class QueryExecutor {
   }
 
   private static File[] getFileList() {
-    File folder = new File(System.getProperty("user.dir") + "/src/resources");
+    File folder = new File(new StringBuilder().append(System.getProperty("user.dir")).append("/src/resources").toString());
     logger.info("Looking for all files under: " + folder.getAbsolutePath());
     File[] fileList = folder.listFiles();
     return fileList;
