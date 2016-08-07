@@ -52,9 +52,19 @@ public class QueryExecutor {
 
   private static ResultSet executeQuery(String query) throws Exception {
     Preconditions.checkNotNull(query, "SQL query cannot be empty.");
+    logger.info("Trying to connect to KYLIN server...");
+    long startTime, endTime;
+    startTime = System.currentTimeMillis();
     Connection conn = getConnection();
+    endTime = System.currentTimeMillis();
+    logger.info("Connected to KYLIN server...");
+    logger.info("Time elapsed in establishing connection: " + (float)(endTime-startTime)/1000 + " second(s)");
     Statement stat = conn.createStatement();
+    logger.info("Executing SQL...");
+    startTime = System.currentTimeMillis();
     ResultSet resultSet = stat.executeQuery(query);
+    endTime = System.currentTimeMillis();
+    logger.info("Time elapsed in executing SQL: " + (float)(endTime-startTime)/1000 + " second(s)");
     return resultSet;
   }
 
