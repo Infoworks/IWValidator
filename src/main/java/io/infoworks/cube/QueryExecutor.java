@@ -8,10 +8,8 @@ import com.google.common.base.Preconditions;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.sql.Connection;
+import java.sql.*;
 import java.sql.Driver;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -26,15 +24,17 @@ public class QueryExecutor {
   private static String kylinUsername;
   private static String kylinPassword;
   private static String kylinProjectName;
+  private static String queryFileName;
 
   private static final String kylingJDBCDriver = "org.apache.kylin.jdbc.Driver";
 
-  public QueryExecutor(String kylinHost, String kylinPort, String kylinUsername, String kylinPassword, String kylinProjectName) {
+  public QueryExecutor(String kylinHost, String kylinPort, String kylinUsername, String kylinPassword, String kylinProjectName, String queryFileName) {
     this.kylinHost = kylinHost;
     this.kylinPort = kylinPort;
     this.kylinUsername = kylinUsername;
     this.kylinPassword  = kylinPassword;
     this.kylinProjectName = kylinProjectName;
+    this.queryFileName = queryFileName;
   }
 
   private static String getConnectionString() {
@@ -68,33 +68,27 @@ public class QueryExecutor {
     return resultSet;
   }
 
-  private static File[] getFileList() {
+  private static String getFolderPath() {
     File folder = new File(new StringBuilder().append(System.getProperty("user.dir")).append("/src/resources").toString());
-    logger.info("Looking for all files under: " + folder.getAbsolutePath());
-    File[] fileList = folder.listFiles();
-    return fileList;
+    return folder.getAbsolutePath();
   }
 
   private static List<String> getQueryList() throws Exception {
     List<String> queryList= new ArrayList<String>();
 
-    File[] files = getFileList();
-    for (int i=0; i<files.length; i++) {
-      if (files[i].isFile()) {
-        BufferedReader bReader = null;
-        try {
-          File file = new File(files[i].getAbsolutePath());
-          bReader = new BufferedReader(new FileReader(file));
-          String queryLine;
-          while ((queryLine = bReader.readLine()) != null) {
-            queryList.add(queryLine);
-          }
-        }
-        finally {
-          if (bReader != null) {
-            bReader.close();
-          }
-        }
+    String filePath = getFolderPath() + "/" + queryFileName;
+    BufferedReader bReader = null;
+    try {
+      File file = new File(filePath);
+      bReader = new BufferedReader(new FileReader(file));
+      String queryLine;
+      while ((queryLine = bReader.readLine()) != null) {
+        queryList.add(queryLine);
+      }
+    }
+    finally {
+      if (bReader != null) {
+        bReader.close();
       }
     }
     return queryList;
@@ -109,7 +103,17 @@ public class QueryExecutor {
         logger.info("Executing query: " + query);
         logger.info("---------------------------------------------------------------");
         resultSet = executeQuery(query);
-        // TODO: Print result set here
+        logger.info("---------------------------------------------------------------");
+        logger.info("Result");
+        logger.info("---------------------------------------------------------------");
+        while (resultSet.next()) {
+          ResultSetMetaData rsMetaData= resultSet.getMetaData();
+          String resultRow = "";
+          for (int i=1; i<rsMetaData.getColumnCount(); i++) {
+            resultRow += resultSet.getString(i) + ", ";
+          }
+          System.out.println(resultRow);
+        }
       }
       finally {
         if (resultSet != null) {

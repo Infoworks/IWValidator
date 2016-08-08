@@ -12,12 +12,14 @@ public class Driver {
   private static final String KYLIN_USERNAME = "kylinUsername";
   private static final String KYLIN_PASSWORD =  "kylinPassword";
   private static final String KYLIN_PROJECTNAME = "kylinProjectName";
+  private static final String QUERY_FILENAME = "queryFileName";
 
   private static String kylinHost;
   private static String kylinPort;
   private static String kylinUsername;
   private static String kylinPassword;
   private static String kylinProjectName;
+  private static String queryFileName;
 
   private static Options createOptions() {
     final Options options = new Options();
@@ -26,6 +28,7 @@ public class Driver {
     options.addOption(Option.builder().type(String.class).longOpt(KYLIN_USERNAME).hasArg().required().build());
     options.addOption(Option.builder().type(String.class).longOpt(KYLIN_PASSWORD).hasArg().required().build());
     options.addOption(Option.builder().type(String.class).longOpt(KYLIN_PROJECTNAME).hasArg().required().build());
+    options.addOption(Option.builder().type(String.class).longOpt(QUERY_FILENAME).hasArg().required().build());
     return options;
   }
 
@@ -43,12 +46,13 @@ public class Driver {
       kylinUsername = line.getOptionValue(KYLIN_USERNAME);
       kylinPassword = line.getOptionValue(KYLIN_PASSWORD);
       kylinProjectName = line.getOptionValue(KYLIN_PROJECTNAME);
+      queryFileName = line.getOptionValue(QUERY_FILENAME);
   }
 
   public static void main(String[] args) throws Exception{
     final Options options = createOptions();
     initialize(getCommandLine(options, args));
-    QueryExecutor executor = new QueryExecutor(kylinHost, kylinPort, kylinUsername, kylinPassword, kylinProjectName);
+    QueryExecutor executor = new QueryExecutor(kylinHost, kylinPort, kylinUsername, kylinPassword, kylinProjectName, queryFileName);
     executor.executeQueriesFromFile();
   }
 }

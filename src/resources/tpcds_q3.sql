@@ -1,0 +1,1 @@
+select dt.d_year, it.i_brand_id brand_id, it.i_brand brand, sum(ss_ext_sales_price) sum_agg from TPCDS_QUERY3.STORE_SALES ss JOIN TPCDS_QUERY3.DATE_DIM dt on dt.d_date_sk = ss.ss_sold_date_sk JOIN TPCDS_QUERY3.ITEM it on ss.ss_item_sk = it.i_item_sk  group by dt.d_year, it.i_brand, it.i_brand_id order by dt.d_year, sum_agg desc, brand_id limit 100;
