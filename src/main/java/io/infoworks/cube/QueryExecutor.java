@@ -65,6 +65,7 @@ public class QueryExecutor {
     ResultSet resultSet = stat.executeQuery(query);
     endTime = System.currentTimeMillis();
     logger.info("Time elapsed in executing SQL: " + (float)(endTime-startTime)/1000 + " second(s)");
+    conn.close();
     return resultSet;
   }
 
