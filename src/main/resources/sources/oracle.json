@@ -1,0 +1,17 @@
+{
+    "name" : "oracle_src",
+    "hive_schema" : "oracle_src",
+    "hdfs_path" : "/intg_sources/oracle_src",
+    "connection" : {
+        "fileType" : "oracle",
+        "host"  : "52.5.131.69",
+        "schema" : "NORTHWIND",
+        "userid" : "northwind", 
+        "password" : "IN11**rk",
+        "port" :	"1521"
+    },
+    "sourceType" :"ORACLE" ,
+    "dbname" : "xe"
+    
+   
+}

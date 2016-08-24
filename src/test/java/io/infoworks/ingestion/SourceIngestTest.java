@@ -5,8 +5,12 @@ import static org.junit.Assert.*;
 import java.util.Date;
 import java.util.logging.Logger;
 
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.mongodb.BasicDBObject;
 
 import io.infoworks.ingestion.metadata.MetadataInfo;
 import io.infoworks.ingestion.source.RDBMSSouceInfo;
@@ -14,13 +18,14 @@ import io.infoworks.ingestion.source.SourceDriverName;
 import io.infoworks.ingestion.source.SourceInfo;
 import io.infoworks.ingestion.source.SourceType;
 import io.infoworks.ingestion.tgt.TargetInfo;
+import io.infoworks.util.HdfsUtil;
 
 public class SourceIngestTest {
-
+/*
 	private static MetadataInfo mi ; 
 	private static SourceInfo si ;
 	private static TargetInfo ti ;
-	private static String suff ;
+	private static String suff  ;
 	private Logger logger = Logger.getLogger("SourceIngestTest") ;
 	
 	@Before
@@ -30,8 +35,10 @@ public class SourceIngestTest {
 	
 	@Test
 	public void testSrc() {
-		BaseMongoManager msetup = new BaseMongoManager(mi);
+		Base msetup = new Base(mi);
 		msetup.insert(si, ti, suff);
+		
+		msetup.deleteSource(msetup.findSource(si.getName()), ti);
 	}
 
 	private void init() {
@@ -70,9 +77,16 @@ public class SourceIngestTest {
 		}
 		if(ti == null) { 
 			ti = new TargetInfo() ;
+			ti.setHdfsHost(System.getProperty("tgt_hdfsHost"));
 			ti.setHdfsPath(System.getProperty("tgt_hdfsPath"));
 			ti.setHiveSchema(System.getProperty("tgt_hiveSchema"));
+			String portstr =   System.getProperty("tgt_hdfsPort");
+			int portint = new Integer(portstr).intValue() ;
+			logger.info("port int:" + portint);
+			ti.setHdfsPort(portint);
 			logger.info("got target info: " + ti) ;
 		}
-	}
+	}*/
+	
+	
 }

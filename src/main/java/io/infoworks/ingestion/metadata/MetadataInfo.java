@@ -8,6 +8,7 @@ public class MetadataInfo {
 	private int port ;
 	private String dbName ;
 	
+	
 	private String collectionName ;
 
 	public String getCollectionName() {
@@ -63,4 +64,6 @@ public class MetadataInfo {
 		return "MetadataInfo [hostName=" + hostName + ", userId=" + userId + ", port=" + port + ", dbName=" + dbName
 				+ ", collectionName=" + collectionName + "]";
 	}
+
+	
 }
